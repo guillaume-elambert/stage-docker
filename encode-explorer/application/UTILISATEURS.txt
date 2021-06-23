@@ -1,0 +1,8 @@
+﻿//
+// Liste des utilisateurs utilisée pour la connexion à EncodeExplorer
+//
+// Format :	identifiant:mdp>rôle  (admin ou user)
+//
+
+admin:admin>admin
+user:user>user

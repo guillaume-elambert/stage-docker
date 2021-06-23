@@ -1,0 +1,299 @@
+
+/* General styles */
+
+BODY {
+	background-color:#FFFFFF;
+	font-family:Verdana;
+	font-size:small;
+}
+
+A {
+	color: #000000;
+	text-decoration: none;
+}
+
+A:hover {
+	text-decoration: underline;
+}
+
+#top {
+	width:100%;
+	padding-bottom: 20px;
+}
+
+#top a span, #top a:hover, #top a span:hover{
+	color:#68a9d2;
+	font-weight:bold;
+	text-align:center;
+	font-size:large;
+}
+
+#top a {
+	display:block;
+	padding:20px 0 0 0;
+}
+
+#top span {
+	display:block;
+}
+
+div.subtitle{
+	width:80%;
+	margin: 0 auto;
+	color:#68a9d2;
+	text-align:center;
+}
+
+#frame {
+	border: 1px solid #CDD2D6;
+	text-align:left;
+	position: relative;
+	margin: 0 auto;
+	max-width:60%;
+	overflow:hidden;
+}
+
+#error, #success {
+	max-width:50%;
+	color:#000000;
+	padding:7pt;
+	position: relative;
+	margin: 10pt auto;
+	text-align:center;
+	border: 1px dotted #CDD2D6;
+}
+
+#error {	
+	background-color:#FFE4E1;
+}
+
+#success {
+	background-color:#E0FFE0;
+}
+
+input {
+	border: 1px solid #CDD2D6;
+}
+
+.bar{
+	width:100%;
+	clear:both;
+	height:1px;
+}
+
+/* File list */
+
+table.table {
+	width:100%;
+	border-collapse: collapse;
+	<?php
+		if(isset($_GET['file'])){
+			print "table-layout: fixed;";
+		}
+	?>
+}
+
+table.table td{
+	padding:3px;
+}
+
+table.table tr.row.two {
+	background-color:#fcfdfe;
+}
+
+table.table tr.row.one {
+	background-color:#f8f9fa;
+}
+
+table.table tr.row td.icon {
+	width:25px;
+	padding-top:3px;
+	padding-bottom:1px;
+}
+
+table.table td.del {
+	width:25px;
+}
+
+table.table tr.row td.size {
+	width: 100px;
+	text-align: right;
+}
+
+table.table tr.row td.changed {
+	width: 150px;
+	text-align: center;
+}
+
+table.table tr.header img {
+	vertical-align:bottom;
+}
+
+table img{
+	border:0;
+}
+
+table .telecharger {
+	height:fit-content;
+	margin-top:auto;
+	margin-bottom:auto;
+}
+
+#affichageContenu pre{
+	max-height: 40rem;
+}
+
+
+#affichageContenu pre::-webkit-scrollbar {
+    width: 0.75em;
+	height: 0.75em;
+	border-radius: 10px;
+}
+
+#affichageContenu pre::-webkit-scrollbar-track {
+	background: #cecece;
+	border-radius: 10px;
+}
+
+#affichageContenu pre::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #949494;
+}
+
+#affichageContenu pre::-webkit-scrollbar-thumb:hover {
+	background: #737373;
+}
+
+
+#affichageContenu pre::-webkit-scrollbar-corner{
+	display:none
+}
+.themeSombre {
+	color:white;
+	background-color:#414339;
+}
+
+.themeClaire {
+	color:black;
+	background-color:white;
+}
+
+embed{
+    display: block;
+	margin-left: auto;
+    margin-right: auto;
+	border:none;
+	width: 100%;
+    height: 29.7cm;
+}
+
+/* Info area */
+
+#info {
+	color:#000000;
+	font-family:Verdana;
+	max-width:680px;
+	position: relative;
+	margin: 0 auto;
+	text-align:center;
+}
+
+/* Thumbnail area */
+
+#thumb {
+	position:absolute;
+	border: 1px solid #CDD2D6;
+	background:#f8f9fa;
+	display:none;
+	padding:3px;
+	max-width:30%;
+	max-height:30%;
+}
+
+#thumb img {
+	display:block;
+	max-width:100%;
+	max-height:-webkit-fill-available;
+}
+
+/* Login bar (at the bottom of the page) */
+#login_bar {
+	margin: 0 auto;
+	margin-top:2px;
+	max-width:680px;
+}
+
+#login_bar input.submit{
+	float:right;
+}
+
+/* Upload area */
+
+#upload {
+	margin: 0 auto;
+	margin-top:1%;
+	margin-bottom:1%;
+	max-width:680px;
+	display:flex;
+	justify-content:space-around;
+}
+
+#upload #password_container {
+	margin-right:20px;
+}
+
+#upload #newdir_container, #upload #password_container {
+	/*float:left;*/
+	display:flex;
+}
+
+#upload #upload_container{
+	/*float:right;*/
+	display:flex;
+	justify-content :space-between;
+	min-width:56%;
+}
+
+#upload input.upload_dirname, #upload input.upload_password{
+	width:140px;
+}
+
+#upload input.upload_file{
+	font-size:small;
+}
+
+/* Breadcrumbs */
+
+div.breadcrumbs {
+	display:flex;
+	justify-content:space-between;
+	padding:1px 3px;
+	color:#cccccc;
+	font-size:x-small;
+}
+
+div.breadcrumbs a{
+	display:inline-block;
+	color:#cccccc;
+	padding:2px 0;
+	font-size:small;
+}
+
+/* Login area */
+
+#login {
+	max-width:280px;
+	text-align:right;
+	margin:15px auto 50px auto;
+}
+
+#login div {
+	display:block;
+	width:100%;
+	margin-top:5px;
+}
+
+#login label{
+	width: 120px;
+	text-align: right;
+}

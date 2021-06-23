@@ -1,0 +1,52 @@
+/* Mobile interface */
+
+body.mobile #frame, body.mobile #info, body.mobile #upload {
+	max-width:none;
+}
+
+body.mobile {
+	font-size:medium;
+}
+
+body.mobile a.item {
+	display:block;
+	padding:10px 0;
+}
+
+body.mobile a.item span.size {
+	float:right;
+	margin-left:10px;
+}
+
+body.mobile table.table {
+	margin-bottom:30px;
+}
+
+body.mobile table.table tr td {
+	border-top: 1px solid #CDD2D6;
+}
+
+body.mobile table.table tr.last td {
+	border-bottom: 1px solid #CDD2D6;
+}
+
+body.mobile #top {
+	padding-bottom:3px;
+}
+
+body.mobile #top a {
+	padding-top:3px;
+}
+
+body.mobile #upload #password_container, body.mobile #upload #upload_container, body.mobile #upload #newdir_container {
+	float:none;
+	margin-top:5px;
+}
+
+body.mobile #upload input.upload_dirname, body.mobile #upload input.upload_password{
+	width:240px;
+}
+
+body.mobile #upload {
+	margin-bottom:15px;
+}
