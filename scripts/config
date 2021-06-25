@@ -1,0 +1,22 @@
+#!/bin/bash
+source ./config
+
+if ((                                                               \
+        ${#CONTAINERS_NAMES[@]} != ${#IMAGES_NAMES[@]} ||           \
+        ${#CONTAINERS_NAMES[@]} != ${#IMAGES_DOCKERFILE_PATH[@]} || \
+        ${#CONTAINERS_NAMES[@]} != ${#RUN_ARGS[@]} ||               \
+        ${#CONTAINERS_NAMES[@]} != ${#START_ARGS[@]}                \
+    ));
+then
+    config_file="$( pwd )"
+    echo "Wrong configuration in \"$config_file/config\". Please have a look at the following arrays :"
+    printf " * CONTAINERS_NAMES \n * IMAGES_NAMES \n * IMAGES_DOCKERFILE_PATH \n * RUN_ARGS \n * START_ARGS \n"
+    printf "\nAll should have the same length. \n\n"
+    exit 1
+fi
+
+
+update_config(){
+    unset CONTAINERS_NAMES IMAGES_NAMES IMAGES_DOCKERFILE_PATH WEBSERVICE_PORT WEBSERVICE_IP WEBSERVICE_IP_ARG RUN_ARGS START_ARGS
+    source ./config
+}

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+CONTAINERS_NAMES=("webservice" "encode-explorer")
+IMAGES_NAMES=("webservice" "encode-explorer")
+IMAGES_DOCKERFILE_PATH=("./webservice/" "./encode-explorer/")
+
+WEBSERVICE_PORT=8080
+
+if [[ $( ./scripts/check-container.sh ${CONTAINERS_NAMES[0]} ; echo $? ) -eq 0 ]]; then
+    WEBSERVICE_IP=$(sudo docker container inspect -f '{{ .NetworkSettings.IPAddress }}' ${CONTAINERS_NAMES[0]})
+fi
+
+WEBSERVICE_IP_ARG="" && [[ ! -z "$WEBSERVICE_IP" ]] && WEBSERVICE_IP_ARG="-e WEBSERVICE_IP=${WEBSERVICE_IP} "
+
+RUN_ARGS=("-d -p $WEBSERVICE_PORT:8080 --name ${CONTAINERS_NAMES[0]} ${IMAGES_NAMES[0]}" "-d -p 80:80 ${WEBSERVICE_IP_ARG}-e WEBSERVICE_PORT=${WEBSERVICE_PORT} --name ${CONTAINERS_NAMES[1]} ${IMAGES_NAMES[1]}")
+START_ARGS=("" "")
