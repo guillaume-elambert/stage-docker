@@ -5,8 +5,8 @@ LABEL org.opencontainers.image.authors="Guillaume ELAMBERT"
 EXPOSE 8080
 
 # Tomcat Version
-ENV TOMCAT_VERSION_MAJOR 10
-ENV TOMCAT_VERSION_FULL  10.0.7
+ENV TOMCAT_VERSION_MAJOR 9
+ENV TOMCAT_VERSION_FULL  9.0.48
 
 
 # Set environment

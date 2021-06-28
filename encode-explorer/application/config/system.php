@@ -10,7 +10,7 @@
 $_CONFIG['serveur_webservice'] = "http://localhost:8080/suiviprod/services/SuiviProdPort";
 
 if(getenv("WEBSERVICE_IP")){
-    $_CONFIG['serveur_webservice'] = "https://".getenv("WEBSERVICE_IP").(getenv("WEBSERVICE_PORT")?":".getenv("WEBSERVICE_PORT"):"")."/suiviprod/services/SuiviProdPort";
+    $_CONFIG['serveur_webservice'] = "http://".getenv("WEBSERVICE_IP").(getenv("WEBSERVICE_PORT")?":".getenv("WEBSERVICE_PORT"):"")."/suiviprod/services/SuiviProdPort";
 }
 
 //
@@ -26,7 +26,6 @@ if(getenv("ROOT_DIR")){
 }
 
 
-var_dump($_CONFIG['serveur_webservice']);
 //
 // Location in the server. Usually this does not have to be set manually.
 // Default: $_CONFIG['basedir'] = "";

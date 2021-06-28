@@ -27,7 +27,7 @@ class MyDb extends SQLite3 {
 		
 		if(empty($dbTest) || $dbTest[0] != 3)
 		{
-			if(!$this->exec(fread(fopen("script.sql","r"),filesize("script.sql") ) ) ){
+			if(!$this->exec(fread(fopen("./system/db/script.sql","r"),filesize("./system/db/script.sql") ) ) ){
 				$encodeExplorer->setErrorString("db_init_error");
 			}
 		}
