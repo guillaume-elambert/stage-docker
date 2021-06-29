@@ -3,7 +3,6 @@
 # Check if there is 1 parameter
 if [[ ${#} -ne 1 ]]
 then
-	echo "Invalid number of arguments." "Abort."
     exit 1
 fi
 
@@ -11,6 +10,6 @@ fi
 result=$( docker ps -a -q -f name=$1 )
 
 if [[ -z "$result" ]];
-then 
+then
     exit 1
 fi

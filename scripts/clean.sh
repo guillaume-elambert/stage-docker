@@ -9,8 +9,13 @@ do
     
     if [[ $result -eq 0 ]];
     then
-    # If so, delete it
-        echo "Container $(docker rm -f $container | echo $container ) removed."
-    fi
+        # If so, delete it
+        echo "${green}Container $(docker rm -f $container | echo $container ) successfully removed."
+    else 
+        echo "${yellow}Container \"$container\" doesn't exist."
+    fi;
 
+    reset_color
 done
+
+reset_color

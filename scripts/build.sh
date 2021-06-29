@@ -11,8 +11,12 @@ do
 
     if [[ ! -z result ]];
     then
-        echo "Image \"${IMAGES_NAMES[i]}\" built."
+        echo "${green}Image \"${IMAGES_NAMES[i]}\" successfully built."
     else
-        echo "Failed to build \"${IMAGES_NAMES[i]}\" image."
+        echo "${red}Failed to build \"${IMAGES_NAMES[i]}\" image."
     fi
+
+    reset_color
 done
+
+reset_color

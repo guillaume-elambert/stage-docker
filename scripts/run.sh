@@ -15,11 +15,16 @@ do
         result=$(sudo docker run ${RUN_ARGS[i]}; echo $? )
         
         if [[ ! -z $result ]]; then
-            echo "Container \"$container\" is running."
+            echo "${green}Container \"$container\" is running."
         else
-            echo "Failed to run \"$container\" container."
+            echo "${red}Failed to run \"$container\" container."
         fi
         
-        update_config
+    else
+        echo "${yellow}Container \"$container\" has already been created."
     fi
+
+    update_config
 done
+
+reset_color

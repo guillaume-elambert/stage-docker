@@ -10,21 +10,27 @@ do
     result=$( ./scripts/check-container.sh $container ; echo $? )
 
     if [[ $result -ne 0 ]]; then
-        break
+        echo "${yellow}Container \"$container\" doesn't exist."
+        continue
     fi
 
     # If so check if running
     result=$( sudo docker ps -q -f name=$container )
+
     if [[ -z $result ]]; then
-        break
+        echo "${yellow}Container \"$container\" has already been stopped."
+        continue
     fi
 
+    # Check if container has been stopped
     result=$( sudo docker stop $container | echo $? )
     
     if [[ $result -eq 0 ]]; then
-        echo "Container \"$container\" has been stopped."
+        echo "${green}Container \"$container\" has been stopped."
     else
-        echo "Failed to stop \"$container\" container."
+        echo "${red}Failed to stop \"$container\" container."
     fi
 
 done
+
+reset_color
