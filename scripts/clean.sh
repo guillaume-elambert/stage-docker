@@ -10,7 +10,7 @@ do
     if [[ $result -eq 0 ]];
     then
         # If so, delete it
-        echo "${green}Container $(docker rm -f $container | echo $container ) successfully removed."
+        echo "${green}Container $( sudo docker rm -f $container | echo $container ) successfully removed."
     else 
         echo "${yellow}Container \"$container\" doesn't exist."
     fi;

@@ -1,23 +1,24 @@
 #!/bin/bash
+sudo printf ""
 
 # Variables for color
-green=$(tput setaf 2)
-yellow=$(tput setaf 3)
-red=$(tput setaf 1)
-reset=$(tput sgr0)
+green=`tput setaf 2`
+yellow=`tput setaf 3`
+red=`tput setaf 1`
+reset=`tput sgr0`
 
 check_config(){
     # Check if arrays have the same lenght (no miss configuration)
     if ((                                                               \
             ${#CONTAINERS_NAMES[@]} != ${#IMAGES_NAMES[@]} ||           \
-            ${#CONTAINERS_NAMES[@]} != ${#IMAGES_DOCKERFILE_PATH[@]} || \
+            ${#CONTAINERS_NAMES[@]} != ${#DOCKERFILE_PATH[@]} || \
             ${#CONTAINERS_NAMES[@]} != ${#RUN_ARGS[@]} ||               \
             ${#CONTAINERS_NAMES[@]} != ${#START_ARGS[@]}                \
         ));
     then
         config_file="$( pwd )"
         echo "${red}Wrong configuration in \"$config_file/config\". Please have a look at the following arrays :"
-        echo -e " * CONTAINERS_NAMES \n * IMAGES_NAMES \n * IMAGES_DOCKERFILE_PATH \n * RUN_ARGS \n * START_ARGS"
+        echo -e " * CONTAINERS_NAMES \n * IMAGES_NAMES \n * DOCKERFILE_PATH \n * RUN_ARGS \n * START_ARGS"
         echo -e "${yellow}\n\t/!\  All should have the same length.  /!\ \n"
         reset_color
         exit 1
