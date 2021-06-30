@@ -19,10 +19,10 @@ if(getenv("WEBSERVICE_IP")){
 // For example: $_CONFIG['starting_dir'] = "./mysubdir/";
 // Default: $_CONFIG['starting_dir'] = ".";
 //
-$_CONFIG['starting_dir'] = ".";
+$_CONFIG['starting_dir'] = "./";
 
-if(getenv("ROOT_DIR")){
-    $_CONFIG['starting_dir'] = getenv("ROOT_DIR");
+if(getenv("STARTING_DIR")){
+    $_CONFIG['starting_dir'] = getenv("STARTING_DIR");
 }
 
 

@@ -2,15 +2,20 @@
 
 CONTAINERS_NAMES=("webservice" "encode-explorer")
 IMAGES_NAMES=("webservice" "encode-explorer")
-IMAGES_DOCKERFILE_PATH=("./webservice/" "./encode-explorer/")
+DOCKERFILE_PATH=("./webservice/" "./encode-explorer/")
 
+STARTING_DIR="./"
 WEBSERVICE_PORT=8080
 
+# Check if the webservice container is running
 if [[ $( ./scripts/check-container.sh ${CONTAINERS_NAMES[0]} ; echo $? ) -eq 0 ]]; then
+    # If so, get its IP address
     WEBSERVICE_IP=$(sudo docker container inspect -f '{{ .NetworkSettings.IPAddress }}' ${CONTAINERS_NAMES[0]})
 fi
 
-WEBSERVICE_IP_ARG="" && [[ ! -z "$WEBSERVICE_IP" ]] && WEBSERVICE_IP_ARG="-e WEBSERVICE_IP=${WEBSERVICE_IP} "
+# If the WEBSERVICE_IP variable is undefined or empty, we set it as blank
+# Otherwise, we set the environnement variable
+WEBSERVICE_IP_ARGS="" && [[ ! -z "$WEBSERVICE_IP" ]] && WEBSERVICE_IP_ARGS="-e WEBSERVICE_IP=${WEBSERVICE_IP} "
 
-RUN_ARGS=("-d -p $WEBSERVICE_PORT:8080 --name ${CONTAINERS_NAMES[0]} ${IMAGES_NAMES[0]}" "-d -p 80:80 ${WEBSERVICE_IP_ARG}-e WEBSERVICE_PORT=${WEBSERVICE_PORT} --name ${CONTAINERS_NAMES[1]} ${IMAGES_NAMES[1]}")
+RUN_ARGS=("-d -p ${WEBSERVICE_PORT}:8080 --name ${CONTAINERS_NAMES[0]} ${IMAGES_NAMES[0]}" "-d -p 80:80 ${WEBSERVICE_IP_ARGS}-e WEBSERVICE_PORT=${WEBSERVICE_PORT} -e STARTING_DIR=${STARTING_DIR} --name ${CONTAINERS_NAMES[1]} ${IMAGES_NAMES[1]}")
 START_ARGS=("" "")

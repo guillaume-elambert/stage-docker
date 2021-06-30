@@ -30,4 +30,4 @@ COPY *.war $CATALINA_HOME/webapps/
 # Launch Tomcat on startup
 CMD ${CATALINA_HOME}/bin/catalina.sh run
 
-WORKDIR ${CATALINA_HOME}
+WORKDIR /
