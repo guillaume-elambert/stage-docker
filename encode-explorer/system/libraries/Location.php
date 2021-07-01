@@ -13,7 +13,7 @@ class Location
 			$dir .= $_GET['file'];
 		
 		$dir = stripslashes($dir);
-		$path1 = preg_split("/[\\\\\/]+/", $dir);
+		$path1 = preg_split("/[\/]+/", $dir);
 		$path2 = array();
 		for($i = 0; $i < count($path1); $i++)
 		{
@@ -90,8 +90,8 @@ class Location
 		}
 		else
 		{
-			$startingDir = $this->splitPath(EncodeExplorer::getConfig('starting_dir'));
-			$dossierActuel = $this->splitPath($_GET['dir']);
+			$startingDir = $this->splitPath(addslashes(EncodeExplorer::getConfig('starting_dir')));
+			$dossierActuel = $this->splitPath(addslashes($_GET['dir']));
 			
 			$i = 0;
 			$start = 0;

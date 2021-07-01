@@ -69,8 +69,8 @@ class EncodeExplorer
 
 				if($open_dir){
 					$open_dir = simplexml_load_string(preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $open_dir) );		
-				
-					if(!empty($open_dir))
+					
+					if(!empty($open_dir) && !empty($open_dir->soapenvBody->dossier) )
 					{
 						$open_dir = $open_dir->soapenvBody->dossier;
 						$this->dirs = array();
@@ -89,6 +89,8 @@ class EncodeExplorer
 									$this->files[] = new File($unFichier->nom, $this->location, $unFichier->taille, $unFichier->mtime/1000, (strlen($unFichier->enveloppe)>0)?$unFichier->enveloppe:null);
 							}
 						}
+					} else {
+						$encodeExplorer->setErrorString("unable_to_read_dir");
 					}
 				}
 				else
@@ -367,8 +369,7 @@ class EncodeExplorer
 		if(isset($_GET['file']) && strlen($_GET['file']) > 0){
 			
 			try{
-				
-				$contenu = @file_get_contents($this->getConfig('serveur_webservice')."?method=getFichier&identite=".EncodeExplorer::getConfig('starting_dir').$location->getDir(true, true, false, 0)/*.$_GET['file']*/);
+				$contenu = @file_get_contents($this->getConfig('serveur_webservice')."?method=getFichier&identite=".urlencode(EncodeExplorer::getConfig('starting_dir')).$location->getDir(true, true, false, 0).urlencode($_GET['file']));
 
 				if(isset($contenu)){
 					$contenu = simplexml_load_string( preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $contenu ) );
