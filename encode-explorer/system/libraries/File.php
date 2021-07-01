@@ -120,6 +120,14 @@ class File
 		return false;
 	}
 
+	function isVideo(){
+		$videoExtensions = ["3gp", "avi", "mov", "mp4", "m4v", "m4a", "mp3", "mkv", "ogv", "ogm", "ogg", "oga", "webm", "wav"];
+		$type = $this->getType();
+		$typeIndex = array_search($type, $videoExtensions);
+
+		return !($typeIndex === false);
+	}
+
 	function isPdf()
 	{
 		if(strtolower($this->getType()) == "pdf")
@@ -136,7 +144,7 @@ class File
 
 	function isValidForThumb()
 	{
-		if($this->isImage() || ($this->isPdf() && ImageServer::isEnabledPdf()))
+		if($this->isImage() || $this->isVideo() || ($this->isPdf() && ImageServer::isEnabledPdf()))
 			return true;
 		return false;
 	}

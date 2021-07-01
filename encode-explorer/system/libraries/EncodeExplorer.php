@@ -369,7 +369,7 @@ class EncodeExplorer
 		if(isset($_GET['file']) && strlen($_GET['file']) > 0){
 			
 			try{
-				$contenu = @file_get_contents($this->getConfig('serveur_webservice')."?method=getFichier&identite=".urlencode(EncodeExplorer::getConfig('starting_dir')).$location->getDir(true, true, false, 0).urlencode($_GET['file']));
+				$contenu = @file_get_contents($this->getConfig('serveur_webservice')."?method=getFichier&identite=".urlencode(EncodeExplorer::getConfig('starting_dir').$location->getDir(true, false, false, 0).$_GET['file']));
 
 				if(isset($contenu)){
 					$contenu = simplexml_load_string( preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $contenu ) );

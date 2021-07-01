@@ -62,7 +62,18 @@ $(document).ready(function() {
 
 		$("a.thumb").hover(function(e){
 			$("#thumb").remove();
-			$("body").append("<div id=\"thumb\"><img src=\""+ $(this).attr("contenu") +"\" alt=\"Preview\" \/><\/div>");
+			var style = "style=\"max-width:"+<?php print EncodeExplorer::getConfig('thumbnails_width') ?>+"px; max-height:"+<?php print EncodeExplorer::getConfig('thumbnails_width') ?>+"px;\""
+			var content = "<div id=\"thumb\" "+style+">";
+
+			if($(this).hasClass("image"))
+				content += "<img src=\""+ $(this).attr("contenu") +"\" alt=\"Preview\" "+style+" \/>";
+			if($(this).hasClass("video"))
+				content += '<video controls autoplay '+style+' src="'+ $(this).attr("contenu") +'">Your browser does not support the video tag.</video>';
+
+			content += "<\/div>";
+			console.log(content);
+
+			$("body").append(content);
 			positionThumbnail(e);
 			$("#thumb").fadeIn("medium");
 		},

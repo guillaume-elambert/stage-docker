@@ -5,6 +5,7 @@ if($this->mobile == false)
 {
 	$img="directory";
 	$message = "..";
+	$up = 1;
 
 	if($this->files || $this->dirs)
 	{
@@ -26,6 +27,7 @@ if($this->mobile == false)
 	<?php
 		}
 		else {
+			$up = 0;
 			$img = "arrow_left";
 			$message = "Revenir au dossier";
 
@@ -34,7 +36,7 @@ if($this->mobile == false)
 
 			if(!$this->files->isValidForThumb() && !$this->files->isPdf()){
 				$changerTheme ="<td>
-					<button style=\"float:right;\" onclick=\"var obj = getElementById('affichageContenu'); if(obj.className == 'themeSombre'){this.innerHTML = 'Passer au thème sombre'; obj.setAttribute('class','themeClaire');} else {this.innerHTML = 'Passer au thème claire'; obj.setAttribute('class','themeSombre');}\">Passer au thème claire</button>
+					<button style=\"float:right;\" onclick=\"var obj = getElementById('affichageContenu'); if(obj.className == 'themeSombre'){this.innerHTML = 'Passer au thème sombre'; obj.setAttribute('class','themeClair');} else {this.innerHTML = 'Passer au thème clair'; obj.setAttribute('class','themeSombre');}\">Passer au thème clair</button>
 				</td>";
 			}
 		}
@@ -47,8 +49,8 @@ if($this->mobile == false)
 				<img alt="dir" src="?img=<?php print($img);?>" />
 			</a>
 		</td>
-		<td colspan="<?php print (($this->mobile == true?2:(GateKeeper::isDeleteAllowed()?$colspan1:$colspan1))); ?>" class="long">
-			<a class="item" href="<?php print $this->makeLink(false, false, null, null, null, $this->location->getDir(true, false, false, 1),null); ?>"><?php print($message); ?></a>
+		<td colspan="<?php print (($this->mobile == true?2:(GateKeeper::isDeleteAllowed()?$colspan1:$colspan2))); ?>" class="long">
+			<a class="item" href="<?php print $this->makeLink(false, false, null, null, null, $this->location->getDir(true, false, false, $up), null); ?>"><?php print($message); ?></a>
 		</td>
 		
 		<?php
@@ -115,13 +117,24 @@ if($this->files || $this->dirs)
 				print "target=\"_blank\"";
 			print " class=\"item file";
 			
-			if((EncodeExplorer::getConfig('max_size_download')!="")?($file->size < EncodeExplorer::getConfig('max_size_download')):true && $file->isValidForThumb() && isset($file->contenu) && !is_null($file->contenu) && trim($file->contenu) != "")
+			if((EncodeExplorer::getConfig('max_size_download')!="")?($file->size < EncodeExplorer::getConfig('max_size_download')):true && $file->isValidForThumb() && isset($file->contenu)){
 				print " thumb";
+				if($file->isImage())
+					print " image";
+				else if ($file->isVideo())
+					print " video";
+			}
 
 			print "\"";
 
 			if((EncodeExplorer::getConfig('max_size_download')!="")?($file->size < EncodeExplorer::getConfig('max_size_download')):true && $file->isValidForThumb() && isset($file->contenu) && !is_null($file->contenu) && trim($file->contenu) != ""){
-				print "contenu=\"data:image/".File::getFileExtension($file->name).";Content-Disposition: attachment; filename='".$file->name."';base64,".$file->contenu."\"";
+				if ($file->isImage())
+					print "contenu=\"data:image/";
+				else if ($file->isVideo())
+					print "contenu=\"data:video/";
+					
+				print File::getFileExtension($file->name).";Content-Disposition: attachment; filename='".$file->name."';base64,".$file->contenu."\"";
+				
 			}
 			print ">";
 			print "<img alt=\"".$file->getType()."\" src=\"".$this->makeIcon($file->getType())."\" /></td>\n";
@@ -172,7 +185,7 @@ if($this->files || $this->dirs)
 		if(!$this->files->isValidForThumb() && !$this->files->isPdf()){
 			print 'class="themeSombre"';
 		} else {
-			print 'class="themeClaire"';
+			print 'class="themeClair"';
 		}
 		
 		print 'colspan="'.($this->mobile == true?3:(GateKeeper::isDeleteAllowed()?5:4)).'" style="padding:2%;">';
@@ -182,10 +195,14 @@ if($this->files || $this->dirs)
 		//$contenu = htmlentities($contenu);
 		
 		if($this->files->isPdf()){
-			print "<embed type=\"application/pdf\" src=\"data:application/pdf;Content-Disposition: attachment;filename='".$this->files->name."';base64,".$this->files->contenu."\" alt=\"".$this->files->name."\" align=\"middle\">";
+			print "<embed style=\"width:100%;\" type=\"application/pdf\" src=\"data:application/pdf;Content-Disposition: attachment;filename='".$this->files->name."';base64,".$this->files->contenu."\" alt=\"".$this->files->name."\" align=\"middle\">";
 			print "</embed>";
 		} else if($this->files->isValidForThumb()){
-			print "<img style=\"max-width:100%; display:block; margin:auto;\" src=\"data:image/".File::getFileExtension($this->files->name).";Content-Disposition: attachment; filename='".$this->files->name."';base64,".$this->files->contenu."\" alt=\"".$this->files->name."\" />";
+			
+			if($this->files->isImage())
+				print "<img style=\"width:100%; display:block; margin:auto;\" src=\"data:image/".File::getFileExtension($this->files->name).";Content-Disposition: attachment; filename='".$this->files->name."';base64,".$this->files->contenu."\" alt=\"".$this->files->name."\" />";
+			else if($this->files->isVideo())
+				print "<video style=\"width:100%;\" controls autoplay src=\"data:video/".File::getFileExtension($this->files->name).";Content-Disposition: attachment; filename='".$this->files->name."';base64,".$this->files->contenu."\" alt=\"".$this->files->name."\">Your browser does not support the video tag.</video>";
 		} else {
 			print '<pre style="overflow: auto;">';
 						

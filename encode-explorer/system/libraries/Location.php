@@ -9,8 +9,8 @@ class Location
 	//
 	public static function splitPath($dir)
 	{
-		if(isset($_GET['file']) && strlen($_GET['file']) > 0)
-			$dir .= $_GET['file'];
+		/*if(isset($_GET['file']) && strlen($_GET['file']) > 0)
+			$dir .= $_GET['file'];*/
 		
 		$dir = stripslashes($dir);
 		$path1 = preg_split("/[\/]+/", $dir);
