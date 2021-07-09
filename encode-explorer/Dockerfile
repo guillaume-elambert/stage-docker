@@ -5,4 +5,4 @@ WORKDIR /var/www/html
 
 EXPOSE 80
 COPY . .
-#CMD echo EncodeExplorer is running...
+RUN chmod 777 ./system/db
