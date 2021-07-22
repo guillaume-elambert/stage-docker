@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html data-color-mode="dark" data-light-theme="light" data-dark-theme="dark">
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      :root {
+        --svg-size : 2rem;
+        --rounded-corner: 0.5em;
+      }
+
+      #theme-chooser {
+        border : solid 2px var(--color-scale-gray-9);
+        border-bottom-right-radius: var(--rounded-corner);
+        border-bottom-left-radius: var(--rounded-corner);
+        border-top : none;
+        /*pointer-events: none;*/
+        position: fixed;
+        top: 0;
+        right: 1rem;
+        width: calc(var(--svg-size) * 5);
+        display: flex;
+        justify-content: space-around;
+        /*color-scheme: light;*/
+        background: var(--color-scale-gray-2);
+      }
+
+      #theme-chooser button {
+        padding : 0;
+        margin : 2px;
+        width: var(--svg-size);
+        height: var(--svg-size);
+        border-radius : var(--rounded-corner);
+        background-color: transparent;
+        border : none;
+      }
+
+      #theme-chooser img {
+        width: 100%;
+        height: 100%;
+        border-radius: var(--rounded-corner);
+        cursor: pointer !important;
+      }
+
+      #theme-chooser button.active {        
+        background: var(--color-scale-gray-5);
+      }
+    </style>
+    <link href="https://unpkg.com/@primer/css@^16.0.0/dist/primer.css" rel="stylesheet" />
+    <script defer>
+      const root = document.querySelector("html");
+      function setActive(element){
+        var active = document.querySelector("#theme-chooser > .active")
+        if(active)
+          active.classList.toggle("active");
+        element.classList.toggle("active");
+      }
+
+      function setTheme(colorMode, dataLight, dataDark){
+        root.setAttribute("data-color-mode", colorMode);
+        root.setAttribute("data-light-theme", dataLight);
+        root.setAttribute("data-dark-theme", dataDark);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="theme-chooser">
+      <button id="light" class="" onclick="setActive(this); setTheme('light', 'light', 'dark')"><img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCAxNzIgMTcyIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBmb250LWZhbWlseT0ibm9uZSIgZm9udC13ZWlnaHQ9Im5vbmUiIGZvbnQtc2l6ZT0ibm9uZSIgdGV4dC1hbmNob3I9Im5vbmUiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTogbm9ybWFsIj48cGF0aCBkPSJNMCwxNzJ2LTE3MmgxNzJ2MTcyeiIgZmlsbD0ibm9uZSI+PC9wYXRoPjxnIGZpbGw9IiMwMDAwMDAiPjxwYXRoIGQ9Ik04NS42Nzc1LDEzLjY1MjVjLTAuMTQ3ODEsMC4wMjY4OCAtMC4yOTU2MiwwLjA2NzE5IC0wLjQzLDAuMTA3NWMtMS41OTkwNiwwLjM2MjgxIC0yLjcyNzgxLDEuODAwNjMgLTIuNjg3NSwzLjQ0djIwLjY0Yy0wLjAxMzQ0LDEuMjM2MjUgMC42MzE1NiwyLjM5MTg4IDEuNzA2NTYsMy4wMjM0NGMxLjA3NSwwLjYxODEzIDIuMzkxODcsMC42MTgxMyAzLjQ2Njg3LDBjMS4wNzUsLTAuNjMxNTYgMS43MiwtMS43ODcxOSAxLjcwNjU2LC0zLjAyMzQ0di0yMC42NGMwLjA0MDMxLC0wLjk5NDM3IC0wLjM2MjgxLC0xLjk0ODQ0IC0xLjA3NSwtMi42MjAzMWMtMC43MjU2MiwtMC42ODUzMSAtMS43MDY1NiwtMS4wMjEyNSAtMi42ODc1LC0wLjkyNzE5ek0zNi42NTc1LDMzLjg2MjVjLTEuMjksMC4yMjg0NCAtMi4zMjQ2OSwxLjE2OTA2IC0yLjY4NzUsMi40MTg3NWMtMC4zNjI4MSwxLjI2MzEzIDAuMDEzNDQsMi42MDY4OCAwLjk2NzUsMy40OTM3NWwxNC42MiwxNC42MmMwLjgzMzEzLDEuMDIxMjUgMi4xNjM0NCwxLjQ5MTU2IDMuNDUzNDQsMS4xOTU5NGMxLjI3NjU2LC0wLjI5NTYyIDIuMjg0MzgsLTEuMzAzNDQgMi41OCwtMi41OGMwLjI5NTYzLC0xLjI5IC0wLjE3NDY5LC0yLjYyMDMxIC0xLjE5NTk0LC0zLjQ1MzQ0bC0xNC42MiwtMTQuNjJjLTAuNzEyMTksLTAuNzY1OTQgLTEuNzQ2ODcsLTEuMTU1NjIgLTIuNzk1LC0xLjA3NWMtMC4xMDc1LDAgLTAuMjE1LDAgLTAuMzIyNSwwek0xMzQuMjY3NSwzMy44NjI1Yy0wLjc3OTM3LDAuMTA3NSAtMS41MDUsMC40OTcxOSAtMi4wNDI1LDEuMDc1bC0xNC42MiwxNC42MmMtMS4wMjEyNSwwLjgzMzEzIC0xLjQ5MTU2LDIuMTYzNDQgLTEuMTk1OTQsMy40NTM0NGMwLjI5NTYyLDEuMjc2NTYgMS4zMDM0NCwyLjI4NDM4IDIuNTgsMi41OGMxLjI5LDAuMjk1NjMgMi42MjAzMSwtMC4xNzQ2OSAzLjQ1MzQ0LC0xLjE5NTk0bDE0LjYyLC0xNC42MmMxLjA3NSwtMS4wMjEyNSAxLjM4NDA2LC0yLjYyMDMxIDAuNzUyNSwtMy45NjQwNmMtMC42NDUsLTEuMzU3MTkgLTIuMDY5MzcsLTIuMTM2NTYgLTMuNTQ3NSwtMS45NDg0NHpNODUuNjc3NSw1MS42Yy0wLjEwNzUsMC4wMjY4OCAtMC4yMTUsMC4wNjcxOSAtMC4zMjI1LDAuMTA3NWMtMC4yMTUsMC4wMTM0NCAtMC40MywwLjA1Mzc1IC0wLjY0NSwwLjEwNzVjLTAuMDQwMzEsMC4wNDAzMSAtMC4wNjcxOSwwLjA2NzE5IC0wLjEwNzUsMC4xMDc1Yy0xOC4yNDgxMiwwLjc3OTM4IC0zMy4wMDI1LDE1LjY0MTI1IC0zMy4wMDI1LDM0LjA3NzVjMCwxOC45MzM0NCAxNS40NjY1NiwzNC40IDM0LjQsMzQuNGMxOC45MzM0NCwwIDM0LjQsLTE1LjQ2NjU2IDM0LjQsLTM0LjRjMCwtMTguMzY5MDYgLTE0LjYzMzQ0LC0zMy4xNzcxOSAtMzIuNzg3NSwtMzQuMDc3NWMtMC4xMjA5NCwwIC0wLjIwMTU2LC0wLjEwNzUgLTAuMzIyNSwtMC4xMDc1Yy0wLjM0OTM3LC0wLjEzNDM3IC0wLjcxMjE5LC0wLjIwMTU2IC0xLjA3NSwtMC4yMTVjLTAuMDY3MTksMCAtMC4xNDc4MSwwIC0wLjIxNSwwYy0wLjEwNzUsMCAtMC4yMTUsMCAtMC4zMjI1LDB6TTg1Ljc4NSw1OC40OGMwLjA2NzE5LDAgMC4xNDc4MSwwIDAuMjE1LDBjMC4xMDc1LDAgMC4yMTUsMCAwLjMyMjUsMGMxNS4wNSwwLjE3NDY5IDI3LjE5NzUsMTIuNDI5NjkgMjcuMTk3NSwyNy41MmMwLDE1LjIxMTI1IC0xMi4zMDg3NSwyNy41MiAtMjcuNTIsMjcuNTJjLTE1LjE5NzgxLDAgLTI3LjUyLC0xMi4zMDg3NSAtMjcuNTIsLTI3LjUyYzAsLTE1LjEzMDYyIDEyLjIwMTI1LC0yNy4zOTkwNiAyNy4zMDUsLTI3LjUyek0xNi4yMzI1LDgyLjU2Yy0xLjg5NDY5LDAuMjY4NzUgLTMuMjI1LDIuMDI5MDYgLTIuOTU2MjUsMy45MjM3NWMwLjI2ODc1LDEuODk0NjkgMi4wMjkwNiwzLjIyNSAzLjkyMzc1LDIuOTU2MjVoMjAuNjRjMS4yMzYyNSwwLjAxMzQ0IDIuMzkxODgsLTAuNjMxNTYgMy4wMjM0NCwtMS43MDY1NmMwLjYxODEzLC0xLjA3NSAwLjYxODEzLC0yLjM5MTg3IDAsLTMuNDY2ODdjLTAuNjMxNTYsLTEuMDc1IC0xLjc4NzE5LC0xLjcyIC0zLjAyMzQ0LC0xLjcwNjU2aC0yMC42NGMtMC4xMDc1LDAgLTAuMjE1LDAgLTAuMzIyNSwwYy0wLjEwNzUsMCAtMC4yMTUsMCAtMC4zMjI1LDBjLTAuMTA3NSwwIC0wLjIxNSwwIC0wLjMyMjUsMHpNMTMzLjE5MjUsODIuNTZjLTEuODk0NjksMC4yNjg3NSAtMy4yMjUsMi4wMjkwNiAtMi45NTYyNSwzLjkyMzc1YzAuMjY4NzUsMS44OTQ2OSAyLjAyOTA2LDMuMjI1IDMuOTIzNzUsMi45NTYyNWgyMC42NGMxLjIzNjI1LDAuMDEzNDQgMi4zOTE4OCwtMC42MzE1NiAzLjAyMzQ0LC0xLjcwNjU2YzAuNjE4MTMsLTEuMDc1IDAuNjE4MTMsLTIuMzkxODcgMCwtMy40NjY4N2MtMC42MzE1NiwtMS4wNzUgLTEuNzg3MTksLTEuNzIgLTMuMDIzNDQsLTEuNzA2NTZoLTIwLjY0Yy0wLjEwNzUsMCAtMC4yMTUsMCAtMC4zMjI1LDBjLTAuMTA3NSwwIC0wLjIxNSwwIC0wLjMyMjUsMGMtMC4xMDc1LDAgLTAuMjE1LDAgLTAuMzIyNSwwek01MS42LDExNi41M2MtMC43NzkzNywwLjEwNzUgLTEuNTA1LDAuNDk3MTkgLTIuMDQyNSwxLjA3NWwtMTQuNjIsMTQuNjJjLTEuMDIxMjUsMC44MzMxMyAtMS40OTE1NiwyLjE2MzQ0IC0xLjE5NTk0LDMuNDUzNDRjMC4yOTU2MiwxLjI3NjU2IDEuMzAzNDQsMi4yODQzOCAyLjU4LDIuNThjMS4yOSwwLjI5NTYzIDIuNjIwMzEsLTAuMTc0NjkgMy40NTM0NCwtMS4xOTU5NGwxNC42MiwtMTQuNjJjMS4wMjEyNSwtMC45ODA5NCAxLjMzMDMxLC0yLjQ5OTM3IDAuNzc5MzgsLTMuODAyODFjLTAuNTM3NSwtMS4zMDM0NCAtMS44NDA5NCwtMi4xMzY1NiAtMy4yNTE4OCwtMi4xMDk2OWMtMC4xMDc1LDAgLTAuMjE1LDAgLTAuMzIyNSwwek0xMTkuMzI1LDExNi41M2MtMS4yOSwwLjIyODQ0IC0yLjMyNDY5LDEuMTY5MDYgLTIuNjg3NSwyLjQxODc1Yy0wLjM2MjgxLDEuMjYzMTMgMC4wMTM0NCwyLjYwNjg4IDAuOTY3NSwzLjQ5Mzc1bDE0LjYyLDE0LjYyYzAuODMzMTMsMS4wMjEyNSAyLjE2MzQ0LDEuNDkxNTYgMy40NTM0NCwxLjE5NTk0YzEuMjc2NTYsLTAuMjk1NjIgMi4yODQzOCwtMS4zMDM0NCAyLjU4LC0yLjU4YzAuMjk1NjMsLTEuMjkgLTAuMTc0NjksLTIuNjIwMzEgLTEuMTk1OTQsLTMuNDUzNDRsLTE0LjYyLC0xNC42MmMtMC42NDUsLTAuNjg1MzEgLTEuNTMxODcsLTEuMDYxNTYgLTIuNDcyNSwtMS4wNzVjLTAuMTA3NSwwIC0wLjIxNSwwIC0wLjMyMjUsMGMtMC4xMDc1LDAgLTAuMjE1LDAgLTAuMzIyNSwwek04NS42Nzc1LDEzMC42MTI1Yy0wLjE0NzgxLDAuMDI2ODggLTAuMjk1NjIsMC4wNjcxOSAtMC40MywwLjEwNzVjLTEuNTk5MDYsMC4zNjI4MSAtMi43Mjc4MSwxLjgwMDYzIC0yLjY4NzUsMy40NHYyMC42NGMtMC4wMTM0NCwxLjIzNjI1IDAuNjMxNTYsMi4zOTE4OCAxLjcwNjU2LDMuMDIzNDRjMS4wNzUsMC42MTgxMyAyLjM5MTg3LDAuNjE4MTMgMy40NjY4NywwYzEuMDc1LC0wLjYzMTU2IDEuNzIsLTEuNzg3MTkgMS43MDY1NiwtMy4wMjM0NHYtMjAuNjRjMC4wNDAzMSwtMC45OTQzNyAtMC4zNjI4MSwtMS45NDg0NCAtMS4wNzUsLTIuNjIwMzFjLTAuNzI1NjIsLTAuNjg1MzEgLTEuNzA2NTYsLTEuMDIxMjUgLTIuNjg3NSwtMC45MjcxOXoiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPg=="/></button>
+      <button id="dark_dimmed" class="" onclick="setActive(this); setTheme('dark', 'light', 'dark_dimmed')"><img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCAxNzIgMTcyIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBmb250LWZhbWlseT0ibm9uZSIgZm9udC13ZWlnaHQ9Im5vbmUiIGZvbnQtc2l6ZT0ibm9uZSIgdGV4dC1hbmNob3I9Im5vbmUiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTogbm9ybWFsIj48cGF0aCBkPSJNMCwxNzJ2LTE3MmgxNzJ2MTcyeiIgZmlsbD0ibm9uZSI+PC9wYXRoPjxnIGZpbGw9IiMwMDAwMDAiPjxwYXRoIGQ9Ik02OC43NDYyNSw2LjgzMjk3Yy0xLjg5NzIyLDAuMDI5NjYgLTMuNDEyMjMsMS41ODk3NiAtMy4zODYyNSwzLjQ4NzAzdjE3LjJjLTAuMDE3NTQsMS4yNDA1OSAwLjYzNDI1LDIuMzk0NTIgMS43MDU4LDMuMDE5OTNjMS4wNzE1NSwwLjYyNTQxIDIuMzk2ODQsMC42MjU0MSAzLjQ2ODM5LDBjMS4wNzE1NSwtMC42MjU0MSAxLjcyMzM1LC0xLjc3OTM1IDEuNzA1OCwtMy4wMTk5M3YtMTcuMmMwLjAxMjczLC0wLjkyOTgzIC0wLjM1MTQ5LC0xLjgyNTIyIC0xLjAwOTY3LC0yLjQ4MjE0Yy0wLjY1ODE5LC0wLjY1NjkyIC0xLjU1NDI3LC0xLjAxOTQyIC0yLjQ4NDA4LC0xLjAwNDg5ek0xNTguMTcyODEsMTAuMjg2NDFjLTAuODkzNzEsMC4wMjY2MyAtMS43NDE5NCwwLjQwMDE0IC0yLjM2NSwxLjA0MTQxbC0xNDQuNDgsMTQ0LjQ4Yy0wLjg5ODY2LDAuODYyODEgLTEuMjYwNjYsMi4xNDQwNCAtMC45NDYzOSwzLjM0OTU1YzAuMzE0MjcsMS4yMDU1MSAxLjI1NTcsMi4xNDY5NCAyLjQ2MTIxLDIuNDYxMjFjMS4yMDU1MSwwLjMxNDI3IDIuNDg2NzQsLTAuMDQ3NzMgMy4zNDk1NSwtMC45NDYzOWwxNDQuNDgsLTE0NC40OGMxLjAxNzQyLC0wLjk4ODk3IDEuMzIzMzMsLTIuNTAxMTEgMC43NzAzMywtMy44MDc3OGMtMC41NTI5OSwtMS4zMDY2NyAtMS44NTE0NSwtMi4xMzk4MyAtMy4yNjk3MSwtMi4wOTh6TTI3LjQxMjUsMjMuOTcyNWMtMS4zOTk4MiwwLjAwMDM3IC0yLjY1OTg0LDAuODQ4ODQgLTMuMTg2NTgsMi4xNDU3N2MtMC41MjY3NCwxLjI5NjkzIC0wLjIxNTE2LDIuNzgzNyAwLjc4Nzk5LDMuNzYwMDFsMTIuMTY3NjYsMTIuMTY3NjZjMC44NjI4MSwwLjg5ODY3IDIuMTQ0MDQsMS4yNjA2OCAzLjM0OTU2LDAuOTQ2NDFjMS4yMDU1MiwtMC4zMTQyNyAyLjE0Njk2LC0xLjI1NTcgMi40NjEyMiwtMi40NjEyMmMwLjMxNDI3LC0xLjIwNTUyIC0wLjA0Nzc0LC0yLjQ4Njc1IC0wLjk0NjQxLC0zLjM0OTU2bC0xMi4xNjc2NiwtMTIuMTY3NjZjLTAuNjQ3NjUsLTAuNjY1NzUgLTEuNTM2OTgsLTEuMDQxMzUgLTIuNDY1NzgsLTEuMDQxNDF6TTExMC4wODY3MiwyMy45NzI1Yy0wLjg5MzcxLDAuMDI2NjMgLTEuNzQxOTQsMC40MDAxNCAtMi4zNjUsMS4wNDE0MWwtMTIuMTY3NjUsMTIuMTY3NjZjLTAuODk4NjcsMC44NjI4MSAtMS4yNjA2OCwyLjE0NDA0IC0wLjk0NjQxLDMuMzQ5NTZjMC4zMTQyNywxLjIwNTUyIDEuMjU1NywyLjE0Njk2IDIuNDYxMjIsMi40NjEyMmMxLjIwNTUyLDAuMzE0MjcgMi40ODY3NSwtMC4wNDc3NCAzLjM0OTU2LC0wLjk0NjQxbDEyLjE2NzY2LC0xMi4xNjc2NmMxLjAxNzQyLC0wLjk4ODk3IDEuMzIzMzMsLTIuNTAxMTEgMC43NzAzMywtMy44MDc3OGMtMC41NTMsLTEuMzA2NjcgLTEuODUxNDYsLTIuMTM5ODMgLTMuMjY5NzEsLTIuMDk4ek02OC44MDY3MiwzNy44NjY4N2MtNy45Mjc5MSwwIC0xNS44NTkyLDMuMDE5NjggLTIxLjg5NjQsOS4wNTY4OGMtNS44NTE0NCw1Ljg0NDU2IC05LjA3MDMxLDEzLjYyNjY0IC05LjA3MDMxLDIxLjg5NjRjMCw4LjI2NjMyIDMuMjIyMzEsMTYuMDM4NDEgOS4wNzAzMSwyMS44ODI5N2MxLjczNzIsMS43MzcyIDMuNjM4MjMsMy4xODYxNCA1LjY0Mzc1LDQuNDE0MjJsNS4wNTI1LC01LjA1MjVjLTIuMDk0OTYsLTEuMDg3MDQgLTQuMDc0MDQsLTIuNDY4MjYgLTUuODMxODgsLTQuMjI2MWMtNC41NDc2OCwtNC41NDc2OCAtNy4wNTQ2OSwtMTAuNTg5MjQgLTcuMDU0NjksLTE3LjAxODZjMCwtNi40MzI4IDIuNTA3MDEsLTEyLjQ4NDM1IDcuMDU0NjksLTE3LjAzMjAzYzQuNjk1NiwtNC42OTIxNiAxMC44NTczOSwtNy4wNDEyNSAxNy4wMjUzMSwtNy4wNDEyNWM2LjE2NzkyLDAgMTIuMzI5NzEsMi4zNDkwOSAxNy4wMjUzMSw3LjA0MTI1YzEuNzM3MiwxLjczNzIgMy4xMzUyOSwzLjcwOTU1IDQuMjM5NTMsNS44MjUxNWw1LjA1MjUsLTUuMDUyNWMtMS4yNDE4NCwtMi4wMTkyOCAtMi43MDQzOCwtMy45MjA0NyAtNC40MjA5NCwtNS42MzcwM2MtNi4wMzU0OCwtNi4wMzcyIC0xMy45NjE3OCwtOS4wNTY4OCAtMjEuODg5NjksLTkuMDU2ODh6TTE1NC43NDYyNSw1NC45OTI5N2MtMS44OTcyMiwwLjAyOTY2IC0zLjQxMjIzLDEuNTg5NzYgLTMuMzg2MjUsMy40ODcwM3YzLjQ0aC0zLjQ0Yy0xLjI0MDU5LC0wLjAxNzU0IC0yLjM5NDUyLDAuNjM0MjUgLTMuMDE5OTMsMS43MDU4Yy0wLjYyNTQxLDEuMDcxNTUgLTAuNjI1NDEsMi4zOTY4NCAwLDMuNDY4MzljMC42MjU0MSwxLjA3MTU1IDEuNzc5MzUsMS43MjMzNSAzLjAxOTkzLDEuNzA1OGgzLjQ0djMuNDRjLTAuMDE3NTQsMS4yNDA1OSAwLjYzNDI1LDIuMzk0NTIgMS43MDU4LDMuMDE5OTNjMS4wNzE1NSwwLjYyNTQxIDIuMzk2ODQsMC42MjU0MSAzLjQ2ODM5LDBjMS4wNzE1NSwtMC42MjU0MSAxLjcyMzM1LC0xLjc3OTM1IDEuNzA1OCwtMy4wMTk5M3YtMy40NGgzLjQ0YzEuMjQwNTksMC4wMTc1NCAyLjM5NDUyLC0wLjYzNDI1IDMuMDE5OTMsLTEuNzA1OGMwLjYyNTQxLC0xLjA3MTU1IDAuNjI1NDEsLTIuMzk2ODQgMCwtMy40NjgzOWMtMC42MjU0MSwtMS4wNzE1NSAtMS43NzkzNSwtMS43MjMzNSAtMy4wMTk5MywtMS43MDU4aC0zLjQ0di0zLjQ0YzAuMDEyNzMsLTAuOTI5ODMgLTAuMzUxNDksLTEuODI1MjIgLTEuMDA5NjcsLTIuNDgyMTRjLTAuNjU4MTksLTAuNjU2OTIgLTEuNTU0MjcsLTEuMDE5NDIgLTIuNDg0MDgsLTEuMDA0ODl6TTEwLjMyLDY1LjM2Yy0xLjI0MDU5LC0wLjAxNzU0IC0yLjM5NDUyLDAuNjM0MjUgLTMuMDE5OTMsMS43MDU4Yy0wLjYyNTQxLDEuMDcxNTUgLTAuNjI1NDEsMi4zOTY4NCAwLDMuNDY4MzljMC42MjU0MSwxLjA3MTU1IDEuNzc5MzUsMS43MjMzNSAzLjAxOTkzLDEuNzA1OGgxNy4yYzEuMjQwNTksMC4wMTc1NCAyLjM5NDUyLC0wLjYzNDI1IDMuMDE5OTMsLTEuNzA1OGMwLjYyNTQxLC0xLjA3MTU1IDAuNjI1NDEsLTIuMzk2ODQgMCwtMy40NjgzOWMtMC42MjU0MSwtMS4wNzE1NSAtMS43NzkzNSwtMS43MjMzNSAtMy4wMTk5MywtMS43MDU4ek0xMjksODZjLTE5LjkwODU2LDAgLTM2LjEyLDE2LjIxMTQ0IC0zNi4xMiwzNi4xMmMwLDE5LjkwODU2IDE2LjIxMTQ0LDM2LjEyIDM2LjEyLDM2LjEyYzE5LjkwODU2LDAgMzYuMTIsLTE2LjIxMTQ0IDM2LjEyLC0zNi4xMmMwLC0wLjgxNjIzIC0wLjA2OTAxLC0xLjQ1Mzg0IC0wLjA5NDA2LC0xLjkyMTU2Yy0wLjA4LC0xLjQ5MjY4IC0xLjExNDcyLC0yLjc2MjkgLTIuNTYwMzksLTMuMTQzMWMtMS40NDU2NywtMC4zODAyIC0yLjk3MTQxLDAuMjE2NjQgLTMuNzc1MzksMS40NzY4NWMtMy4zNjIxMSw1LjI1ODc2IC05LjIwNjc2LDguNzQ3ODEgLTE1LjkzMDE1LDguNzQ3ODFjLTEwLjQ5MDY2LDAgLTE4LjkyLC04LjQyOTM0IC0xOC45MiwtMTguOTJjMCwtNi43MjM0IDMuNDg5MDYsLTEyLjU2ODA1IDguNzQ3ODEsLTE1LjkzMDE1YzEuMjYwMjEsLTAuODAzOTggMS44NTcwNCwtMi4zMjk3MiAxLjQ3Njg1LC0zLjc3NTM5Yy0wLjM4MDIsLTEuNDQ1NjcgLTEuNjUwNDEsLTIuNDgwMzkgLTMuMTQzMSwtMi41NjAzOWMtMC40Njc3MywtMC4wMjUwNiAtMS4xMDUzMywtMC4wOTQwNiAtMS45MjE1NiwtMC4wOTQwNnpNMTIxLjU4MjUsOTQuMzcxNTZjLTIuNzIzNDUsNC4wODcwMSAtNC42MjI1LDguNzIzMDEgLTQuNjIyNSwxMy45ODg0NGMwLDE0LjIwODU0IDExLjU5MTQ2LDI1LjggMjUuOCwyNS44YzUuMjY1NDMsMCA5LjkwMTQzLC0xLjg5OTA1IDEzLjk4ODQ0LC00LjYyMjVjLTMuMzM0OTEsMTIuNDgyMjggLTE0LjE5MDk4LDIxLjgyMjUgLTI3Ljc0ODQ0LDIxLjgyMjVjLTE2LjE5MDgsMCAtMjkuMjQsLTEzLjA0OTIgLTI5LjI0LC0yOS4yNGMwLC0xMy41NTc0NiA5LjM0MDIyLC0yNC40MTM1MyAyMS44MjI1LC0yNy43NDg0NHpNMzkuNTQ2NTYsOTQuNTEyNjVjLTAuODkzNzEsMC4wMjY2MyAtMS43NDE5NCwwLjQwMDE0IC0yLjM2NSwxLjA0MTQxbC0xMi4xNjc2NiwxMi4xNjc2NWMtMC44OTg2MywwLjg2MjgyIC0xLjI2MDYxLDIuMTQ0MDMgLTAuOTQ2MzQsMy4zNDk1M2MwLjMxNDI3LDEuMjA1NSAxLjI1NTY5LDIuMTQ2OTEgMi40NjExOSwyLjQ2MTE5YzEuMjA1NSwwLjMxNDI3IDIuNDg2NzEsLTAuMDQ3NzEgMy4zNDk1MywtMC45NDYzNGwxMi4xNjc2NiwtMTIuMTY3NjZjMS4wMTc0MiwtMC45ODg5NyAxLjMyMzMzLC0yLjUwMTExIDAuNzcwMzQsLTMuODA3NzhjLTAuNTUyOTksLTEuMzA2NjcgLTEuODUxNDUsLTIuMTM5ODMgLTMuMjY5NzEsLTIuMDk4ek03NS42MjYyNSwxNDQuNDMyOTdjLTEuODk3MjIsMC4wMjk2NiAtMy40MTIyMywxLjU4OTc2IC0zLjM4NjI1LDMuNDg3MDN2My40NGgtMy40NGMtMS4yNDA1OSwtMC4wMTc1NCAtMi4zOTQ1MiwwLjYzNDI1IC0zLjAxOTkzLDEuNzA1OGMtMC42MjU0MSwxLjA3MTU1IC0wLjYyNTQxLDIuMzk2ODQgMCwzLjQ2ODM5YzAuNjI1NDEsMS4wNzE1NSAxLjc3OTM1LDEuNzIzMzUgMy4wMTk5MywxLjcwNThoMy40NHYzLjQ0Yy0wLjAxNzU0LDEuMjQwNTkgMC42MzQyNSwyLjM5NDUyIDEuNzA1OCwzLjAxOTkzYzEuMDcxNTUsMC42MjU0MSAyLjM5Njg0LDAuNjI1NDEgMy40NjgzOSwwYzEuMDcxNTUsLTAuNjI1NDEgMS43MjMzNSwtMS43NzkzNSAxLjcwNTgsLTMuMDE5OTN2LTMuNDRoMy40NGMxLjI0MDU5LDAuMDE3NTQgMi4zOTQ1MiwtMC42MzQyNSAzLjAxOTkzLC0xLjcwNThjMC42MjU0MSwtMS4wNzE1NSAwLjYyNTQxLC0yLjM5Njg0IDAsLTMuNDY4MzljLTAuNjI1NDEsLTEuMDcxNTUgLTEuNzc5MzUsLTEuNzIzMzUgLTMuMDE5OTMsLTEuNzA1OGgtMy40NHYtMy40NGMwLjAxMjczLC0wLjkyOTgzIC0wLjM1MTQ5LC0xLjgyNTIyIC0xLjAwOTY3LC0yLjQ4MjE0Yy0wLjY1ODE5LC0wLjY1NjkyIC0xLjU1NDI3LC0xLjAxOTQyIC0yLjQ4NDA4LC0xLjAwNDg5eiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+"/></button>
+      <button id="dark" class="active" onclick="setActive(this); setTheme('dark', 'light', 'dark')"><img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCAxNzIgMTcyIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBmb250LWZhbWlseT0ibm9uZSIgZm9udC13ZWlnaHQ9Im5vbmUiIGZvbnQtc2l6ZT0ibm9uZSIgdGV4dC1hbmNob3I9Im5vbmUiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTogbm9ybWFsIj48cGF0aCBkPSJNMCwxNzJ2LTE3MmgxNzJ2MTcyeiIgZmlsbD0ibm9uZSI+PC9wYXRoPjxnIGZpbGw9IiMwMDAwMDAiPjxwYXRoIGQ9Ik01NC43MTc1LDIwLjUzMjVjLTAuMTQ3ODEsMC4wMjY4OCAtMC4yOTU2MiwwLjA2NzE5IC0wLjQzLDAuMTA3NWMtMS41OTkwNiwwLjM2MjgxIC0yLjcyNzgxLDEuODAwNjMgLTIuNjg3NSwzLjQ0djMuNDRoLTMuNDRjLTAuMTA3NSwwIC0wLjIxNSwwIC0wLjMyMjUsMGMtMS44OTQ2OSwwLjA5NDA2IC0zLjM3MjgxLDEuNzA2NTYgLTMuMjc4NzUsMy42MDEyNWMwLjA5NDA2LDEuODk0NjkgMS43MDY1NiwzLjM3MjgxIDMuNjAxMjUsMy4yNzg3NWgzLjQ0djMuNDRjLTAuMDEzNDQsMS4yMzYyNSAwLjYzMTU2LDIuMzkxODggMS43MDY1NiwzLjAyMzQ0YzEuMDc1LDAuNjE4MTMgMi4zOTE4NywwLjYxODEzIDMuNDY2ODcsMGMxLjA3NSwtMC42MzE1NiAxLjcyLC0xLjc4NzE5IDEuNzA2NTYsLTMuMDIzNDR2LTMuNDRoMy40NGMxLjIzNjI1LDAuMDEzNDQgMi4zOTE4OCwtMC42MzE1NiAzLjAyMzQ0LC0xLjcwNjU2YzAuNjE4MTMsLTEuMDc1IDAuNjE4MTMsLTIuMzkxODcgMCwtMy40NjY4N2MtMC42MzE1NiwtMS4wNzUgLTEuNzg3MTksLTEuNzIgLTMuMDIzNDQsLTEuNzA2NTZoLTMuNDR2LTMuNDRjMC4wNDAzMSwtMC45OTQzNyAtMC4zNjI4MSwtMS45NDg0NCAtMS4wNzUsLTIuNjIwMzFjLTAuNzI1NjIsLTAuNjg1MzEgLTEuNzA2NTYsLTEuMDIxMjUgLTIuNjg3NSwtMC45MjcxOXpNOTcuMzk1LDQ0LjYxMjVsLTQuNTE1LDAuNjQ1Yy0yMy4zMjc1LDMuMzMyNSAtNDEuMjgsMjMuMzk0NjkgLTQxLjI4LDQ3LjYyMjVjMCwyNi41NTI1IDIxLjYwNzUsNDguMTYgNDguMTYsNDguMTZjMjQuMjI3ODEsMCA0NC4yNzY1NiwtMTcuOTUyNSA0Ny42MjI1LC00MS4yOGwwLjY0NSwtNC41MTVsLTQuNTE1LDAuNjQ1Yy0yLjAwMjE5LDAuMjgyMTkgLTMuOTY0MDYsMC40MyAtNS45MTI1LDAuNDNjLTIyLjg0Mzc1LDAgLTQxLjI4LC0xOC40MzYyNSAtNDEuMjgsLTQxLjI4YzAsLTEuOTQ4NDQgMC4xNDc4MSwtMy45MTAzMSAwLjQzLC01LjkxMjV6TTg5LjU0NzUsNTMuNDI3NWMtMC4wMjY4NywwLjU1MDk0IC0wLjEwNzUsMS4wNDgxMyAtMC4xMDc1LDEuNjEyNWMwLDI2LjU1MjUgMjEuNjA3NSw0OC4xNiA0OC4xNiw0OC4xNmMwLjU2NDM4LDAgMS4wNjE1NiwtMC4wODA2MiAxLjYxMjUsLTAuMTA3NWMtNC42MDkwNiwxNy43NjQzOCAtMjAuMjIzNDQsMzEuMDY3NSAtMzkuNDUyNSwzMS4wNjc1Yy0yMi44NDM3NSwwIC00MS4yOCwtMTguNDM2MjUgLTQxLjI4LC00MS4yOGMwLC0xOS4yMjkwNiAxMy4zMDMxMywtMzQuODU2ODcgMzEuMDY3NSwtMzkuNDUyNXpNMjcuMTk3NSw2MS44MTI1Yy0wLjE0NzgxLDAuMDI2ODggLTAuMjk1NjIsMC4wNjcxOSAtMC40MywwLjEwNzVjLTEuNTk5MDYsMC4zNjI4MSAtMi43Mjc4MSwxLjgwMDYzIC0yLjY4NzUsMy40NGMtMC4xMDc1LDAgLTAuMjE1LDAgLTAuMzIyNSwwYy0xLjg5NDY5LDAuMDk0MDYgLTMuMzcyODEsMS43MDY1NiAtMy4yNzg3NSwzLjYwMTI1YzAuMDk0MDYsMS44OTQ2OSAxLjcwNjU2LDMuMzcyODEgMy42MDEyNSwzLjI3ODc1Yy0wLjAxMzQ0LDEuMjM2MjUgMC42MzE1NiwyLjM5MTg4IDEuNzA2NTYsMy4wMjM0NGMxLjA3NSwwLjYxODEzIDIuMzkxODcsMC42MTgxMyAzLjQ2Njg3LDBjMS4wNzUsLTAuNjMxNTYgMS43MiwtMS43ODcxOSAxLjcwNjU2LC0zLjAyMzQ0YzEuMjM2MjUsMC4wMTM0NCAyLjM5MTg4LC0wLjYzMTU2IDMuMDIzNDQsLTEuNzA2NTZjMC42MTgxMywtMS4wNzUgMC42MTgxMywtMi4zOTE4NyAwLC0zLjQ2Njg3Yy0wLjYzMTU2LC0xLjA3NSAtMS43ODcxOSwtMS43MiAtMy4wMjM0NCwtMS43MDY1NmMwLjA0MDMxLC0wLjk5NDM3IC0wLjM2MjgxLC0xLjk0ODQ0IC0xLjA3NSwtMi42MjAzMWMtMC43MjU2MiwtMC42ODUzMSAtMS43MDY1NiwtMS4wMjEyNSAtMi42ODc1LC0wLjkyNzE5eiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+"/></button>
+    </div>
+    
+    <div class="container-xl" style="margin-top: 4rem; margin-bottom:4rem;">
+      <div class="markdown-body">
+        <h1>
+<a id="tp-docker-n1---découverte-de-docker" class="anchor" href="#tp-docker-n1---d%C3%A9couverte-de-docker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TP Docker n°1 - Découverte de Docker</h1>
+<p>Ce TP permet de découvrir Docker et ses commandes.</p>
+<br> 
+<h2>
+<a id="sommaire" class="anchor" href="#sommaire" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sommaire</h2>
+<ul>
+<li><a href="#1-commandes-de-docker">1. Commandes de Docker</a></li>
+<li>
+<a href="#2-premi%C3%A8re-manipulation-dun-conteneur">2. Première manipulation d'un conteneur</a>
+<ul>
+<li><a href="#21-r%C3%A9cup%C3%A9rer-une-image-sur-un-repository-en-ligne">2.1. Récupérer une image sur un repository en ligne</a></li>
+<li><a href="#22-manipuler-les-tags">2.2. Manipuler les tags</a></li>
+<li>
+<a href="#23-configuration-dun-conteneur">2.3. Configuration d'un conteneur</a>
+<ul>
+<li><a href="#231-configuration-en-ligne-de-commande">2.3.1. Configuration en ligne de commande</a></li>
+<li><a href="#232-configuration-%C3%A0-laide-dun-dockerfile">2.3.2. Configuration à l'aide d'un Dockerfile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br><br></p>
+<h2>
+<a id="1-commandes-de-docker" class="anchor" href="#1-commandes-de-docker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. Commandes de Docker</h2>
+<p>Docker possède quelques commandes, vous pouvez les retrouver ici : <a href="https://devhints.io/docker" rel="nofollow">https://devhints.io/docker</a> ou sur la <a href="https://docs.docker.com/reference/" rel="nofollow">Documentation officielle</a> (<code>Menu déroulant de gauche &gt; Command-line reference &gt; Docker CLI (docker)</code>).</p>
+<p>Mais les commandes principales pour ce TP sont :</p>
+<div class="highlight highlight-source-shell"><pre>docker [COMMAND] --help <span class="pl-c"><span class="pl-c">#</span> Cette commande permet d'obtenir de l'aide pour une autre commande. Elle est donc TRÈS importante !! </span>
+docker pull [OPTIONS] NAME[:TAG<span class="pl-k">|</span>@DIGEST]		  <span class="pl-c"><span class="pl-c">#</span> Cette commande permet de télécharger une image disponible sur un registre </span>
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]	 <span class="pl-c"><span class="pl-c">#</span> Cette commande permet de créer et lancer un conteneur </span>
+docker start [OPTIONS] CONTAINER [CONTAINER...]   <span class="pl-c"><span class="pl-c">#</span> Cette commande permet de lancer un conteneur déjà créé </span>
+docker <span class="pl-c1">exec</span> [OPTIONS] CONTAINER COMMAND [ARG...]  <span class="pl-c"><span class="pl-c">#</span> Cette commande permet d'executer une autre commande dans le conteneur </span>
+docker ps [OPTIONS] <span class="pl-c"><span class="pl-c">#</span> Cette commande renvoie la liste des conteneurs </span></pre></div>
+<details> 
+<summary>Liste des commandes (issue de <code>docker --help</code>) </summary> 
+<pre><code>Usage:  docker [OPTIONS] COMMAND 
+ 
+A self-sufficient runtime for containers 
+ 
+Options: 
+	  --config string	  Location of client config files (default "/home/guillaume/.docker") 
+  -c, --context string	 Name of the context to use to connect to the daemon (overrides DOCKER_HOST env var and default context set with "docker context use") 
+  -D, --debug			  Enable debug mode 
+  -H, --host list		  Daemon socket(s) to connect to 
+  -l, --log-level string   Set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info") 
+	  --tls				Use TLS; implied by --tlsverify 
+	  --tlscacert string   Trust certs signed only by this CA (default "/home/guillaume/.docker/ca.pem") 
+	  --tlscert string	 Path to TLS certificate file (default "/home/guillaume/.docker/cert.pem") 
+	  --tlskey string	  Path to TLS key file (default "/home/guillaume/.docker/key.pem") 
+	  --tlsverify		  Use TLS and verify the remote 
+  -v, --version			Print version information and quit 
+ 
+Management Commands: 
+  app*		Docker App (Docker Inc., v0.9.1-beta3) 
+  builder	 Manage builds 
+  buildx*	 Build with BuildKit (Docker Inc., v0.5.1-docker) 
+  config	  Manage Docker configs 
+  container   Manage containers 
+  context	 Manage contexts 
+  image	   Manage images 
+  manifest	Manage Docker image manifests and manifest lists 
+  network	 Manage networks 
+  node		Manage Swarm nodes 
+  plugin	  Manage plugins 
+  scan*	   Docker Scan (Docker Inc., v0.8.0) 
+  secret	  Manage Docker secrets 
+  service	 Manage services 
+  stack	   Manage Docker stacks 
+  swarm	   Manage Swarm 
+  system	  Manage Docker 
+  trust	   Manage trust on Docker images 
+  volume	  Manage volumes 
+ 
+Commands: 
+  attach	  Attach local standard input, output, and error streams to a running container 
+  build	   Build an image from a Dockerfile 
+  commit	  Create a new image from a container's changes 
+  cp		  Copy files/folders between a container and the local filesystem 
+  create	  Create a new container 
+  diff		Inspect changes to files or directories on a container's filesystem 
+  events	  Get real time events from the server 
+  exec		Run a command in a running container 
+  export	  Export a container's filesystem as a tar archive 
+  history	 Show the history of an image 
+  images	  List images 
+  import	  Import the contents from a tarball to create a filesystem image 
+  info		Display system-wide information 
+  inspect	 Return low-level information on Docker objects 
+  kill		Kill one or more running containers 
+  load		Load an image from a tar archive or STDIN 
+  login	   Log in to a Docker registry 
+  logout	  Log out from a Docker registry 
+  logs		Fetch the logs of a container 
+  pause	   Pause all processes within one or more containers 
+  port		List port mappings or a specific mapping for the container 
+  ps		  List containers 
+  pull		Pull an image or a repository from a registry 
+  push		Push an image or a repository to a registry 
+  rename	  Rename a container 
+  restart	 Restart one or more containers 
+  rm		  Remove one or more containers 
+  rmi		 Remove one or more images 
+  run		 Run a command in a new container 
+  save		Save one or more images to a tar archive (streamed to STDOUT by default) 
+  search	  Search the Docker Hub for images 
+  start	   Start one or more stopped containers 
+  stats	   Display a live stream of container(s) resource usage statistics 
+  stop		Stop one or more running containers 
+  tag		 Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE 
+  top		 Display the running processes of a container 
+  unpause	 Unpause all processes within one or more containers 
+  update	  Update configuration of one or more containers 
+  version	 Show the Docker version information 
+  wait		Block until one or more containers stop, then print their exit codes 
+ 
+Run 'docker COMMAND --help' for more information on a command. 
+ 
+To get more help with docker, check out our guides at https://docs.docker.com/go/guides/ 
+</code></pre>
+</details> 
+<p><br><br></p>
+<h2>
+<a id="2-première-manipulation-dun-conteneur" class="anchor" href="#2-premi%C3%A8re-manipulation-dun-conteneur" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. Première manipulation d'un conteneur</h2>
+<br> 
+<h3>
+<a id="21-récupérer-une-image-sur-un-repository-en-ligne" class="anchor" href="#21-r%C3%A9cup%C3%A9rer-une-image-sur-un-repository-en-ligne" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1. Récupérer une image sur un repository en ligne</h3>
+<p>Docker permet d'utiliser des solutions "prémâchées" que l'on télécharge sur dépôt public.<br>
+En effet il existe de nombreuses images de conteneur disponibles sur le <a href="https://hub.docker.com/search?type=image" rel="nofollow">Docker Hub</a>. Elles nous permettent de partir d'une base préfaite contenant certaines librairies et d'y ajouter ce que l'on veut.<br></p>
+<p>Nous allons alors créé notre premier conteneur basé sur PHP.<br></p>
+<blockquote>
+<p><strong>Pour cela, chercher l'image de PHP sur le Docker Hub et la télécharger.</strong></p>
+</blockquote>
+<details> 
+<summary>Solution </summary> 
+<div class="highlight highlight-source-shell"><pre>$ docker pull php <span class="pl-c"><span class="pl-c">#</span> Cette commande télécharge l'image PHP depuis le Docker Hub </span></pre></div>
+</details> 
+<br> 
+<blockquote>
+<p><strong>Une fois cela fait nous pouvons créer le conteneur PHP.</strong></p>
+</blockquote>
+<details id="remarque-docker-run"> 
+<summary>Solution &amp; remarque</summary> 
+<p><strong>Solution :</strong></p>
+<div class="highlight highlight-source-shell"><pre>$ docker run php  <span class="pl-c"><span class="pl-c">#</span> Cette commande créé et lance un conteneur PHP </span></pre></div>
+<p><strong>Remarque :</strong>
+Lorque l'on exécute la commande <code>docker run nom-de-l-image</code> sans avoir téléchargé l'image au préalable, Docker se charge de le faire pour nous.</p>
+</details> 
+<br> 
+<blockquote>
+<p><strong>Vérifier que le conteneur à bien été créé et qu'il est en cours d'éxecution.</strong></p>
+</blockquote>
+<details> 
+<summary>Solution </summary> 
+<div class="highlight highlight-source-shell"><pre>$ docker ps	 <span class="pl-c"><span class="pl-c">#</span> Rien ne s'affiche, le conteneur n'est pas en cours d'éxecution </span>
+$ docker ps -a  <span class="pl-c"><span class="pl-c">#</span> On retrouve bien notre conteneur, il est créé mais arrêté </span></pre></div>
+</details> 
+<br> 
+<blockquote>
+<p><strong>Pourquoi le conteneur est-il arrêté ?</strong></p>
+</blockquote>
+<p>C'est assez simple. Un conteneur s'exécute tant qu'un processus est en cours d'exécution puis il s'arrête dès la fin de tous les processus.<br>
+Or ici nous n'avons que PHP dans le conteneur. Ce n'est pas un processus qui tourne de manière permanente, il est normalement utilisé par un serveur WEB tel qu'Apache ou NGINX qui va quant à lui tourner de manière continue et donc maintenir le conteneur actif.<br>
+Ainsi, n'ayant pas de processus en cours d'éxecution le conteneur s'est arrêté.</p>
+<br> 
+<h3>
+<a id="22-manipuler-les-tags" class="anchor" href="#22-manipuler-les-tags" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2. Manipuler les tags</h3>
+<br> 
+<hr>
+<blockquote>
+<p><strong>Note :</strong><br></p>
+</blockquote>
+<p>Pour éviter d'avoir de nombreux conteneurs inutiles je conseille de fréquemment utiliser la commande :</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> Supprime l'ensemble des conteneurs </span>
+$ docker rm -f <span class="pl-s"><span class="pl-pds">`</span>docker ps -aq<span class="pl-pds">`</span></span> 
+ 
+<span class="pl-c"><span class="pl-c">#</span> Ou si vous avez d'autres conteneurs que vous voulez conserver </span>
+ 
+<span class="pl-c"><span class="pl-c">#</span> Supprime l'ensemble des conteneurs basés sur l'image php:apache </span>
+$ docker rm -f <span class="pl-s"><span class="pl-pds">`</span>docker ps -aq --filter <span class="pl-s"><span class="pl-pds">"</span>ancestor=php:apache<span class="pl-pds">"</span></span><span class="pl-pds">`</span></span> </pre></div>
+<hr>
+<br> 
+<blockquote>
+<p><strong>Comment résoudre ce problème ?</strong></p>
+</blockquote>
+<p>Comme vous l'aurez compris il manque Apache, donc il suffit de l'installer. Facile ! On suit <a href="https://httpd.apache.org/docs/2.4/fr/install.html" rel="nofollow">la documentation d'Apache</a> et Hop c'est fait ! <g-emoji class="g-emoji" alias="+1" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png">👍</g-emoji><g-emoji class="g-emoji" alias="muscle" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4aa.png">💪</g-emoji><br>
+On se rend vite compte que ce n'est pas si facile que ça finalement... et puis surtout ça demande du temps !<br>
+Pas de panique il existe une solution "prémâchéee".<br>
+En effet les images Docker possèdent des <code>tags</code> qui permettent par exemple de définir la version de l'image que nous souhaitons. Ne serait-ce pas formidable s'il existait une version de l'image PHP qui contient Apache dedans ? <g-emoji class="g-emoji" alias="exploding_head" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f92f.png">🤯</g-emoji><g-emoji class="g-emoji" alias="astonished" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f632.png">😲</g-emoji></p>
+<p>Un peu de documentation sur les tags Docker : <a href="https://www.freecodecamp.org/news/an-introduction-to-docker-tags-9b5395636c2a/" rel="nofollow">https://www.freecodecamp.org/news/an-introduction-to-docker-tags-9b5395636c2a/</a></p>
+<br> 
+<blockquote>
+<p><strong>Parcourir <a href="https://hub.docker.com/_/php" rel="nofollow">la page Docker Hub de PHP</a> et créer un conteneur basé sur la dernière version d'Apache.</strong></p>
+</blockquote>
+<details> 
+<summary>Solution </summary> 
+<p><strong>Rappel :</strong> La première ligne est facultative (cf. <a href="#remarque-docker-run">Remarque</a>).</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> On télécharge l'image de PHP qui contient Apache </span>
+<span class="pl-c"><span class="pl-c">#</span> Ici on ne spécifie ni la version de PHP ni celle d'Apache dans le tag </span>
+<span class="pl-c"><span class="pl-c">#</span> Donc par défaut c'est la dernière version qui sera choisie </span>
+$ docker pull php:apache 
+$ docker run php:apache </pre></div>
+</details> 
+<br> 
+<blockquote>
+<p><strong>Ouvrir un nouveau terminal et vérifier que le conteneur à bien été créé et qu'il est en cours d'éxecution.</strong></p>
+</blockquote>
+<details> 
+<summary>Solution </summary> 
+<div class="highlight highlight-source-shell"><pre>$ docker ps	 <span class="pl-c"><span class="pl-c">#</span> Liste les conteneurs en cours d'exécution </span>
+$ docker ps -a  <span class="pl-c"><span class="pl-c">#</span> Liste les conteneurs arrêtés </span></pre></div>
+<p>Normalement, le conteneur devrait soit s'arrêter immédiatement, soit fonctionner un temps et finir par s'arrêter. Dans un cas comme dans l'autre nous obtenons des journaux d'exécution d'Apache.<br>
+Si vous êtes dans le 2ème cas faites <code>CTRL+C</code> pour forcer l'arrêt d'Apache et du conteneur puis passer à la suite.</p>
+</details> 
+<br> 
+<blockquote>
+<p><strong>Interprettons les logs d'Apache.</strong></p>
+</blockquote>
+<p>On obtient quelque chose de la sorte :</p>
+<pre><code>AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message 
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message 
+[Tue Jul 13 09:07:39.355136 2021] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.38 (Debian) PHP/8.0.8 configured -- resuming normal operations 
+[Tue Jul 13 09:07:39.355572 2021] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND' 
+[Tue Jul 13 09:07:56.122761 2021] [mpm_prefork:notice] [pid 1] AH00170: caught SIGWINCH, shutting down gracefully 
+</code></pre>
+<p>Les 2 premières lignes nous intéressent peu car elles indiquent un manque de configuration du nom de domaine ce qui ne nous concerne pas.<br>
+Les 3ème et 4ème lignes indiquent simplement le début de la configuration d'Apache.<br>
+La dernière ligne est assez intéressante. On peut voir que le signal <code>WINCH</code> a été renvoyé lors de l'exécution d'Apache or d'après <a href="https://httpd.apache.org/docs/2.4/stopping.html#gracefulstop" rel="nofollow">la documentation d'Apache</a> cela correspond à une demande d'arrêt du programme.<br>
+On peut se demander ce qu'il s'est passé pour que cela arrive.</p>
+<br> 
+<blockquote>
+<p><strong>Pourquoi Apache (et donc le conteneur) s'est-il arrêté ?</strong></p>
+</blockquote>
+<p>Cela vient du fait qu'Apache a besoin que nous lui attribuions un port pour s'exécuter et que nous lui fournissions du contenu à afficher.</p>
+<br> 
+<h3>
+<a id="23-configuration-dun-conteneur" class="anchor" href="#23-configuration-dun-conteneur" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3. Configuration d'un conteneur</h3>
+<h4>
+<a id="231-configuration-en-ligne-de-commande" class="anchor" href="#231-configuration-en-ligne-de-commande" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.1. Configuration en ligne de commande</h4>
+<blockquote>
+<p><strong>Attribuer un port à un conteneur.</strong></p>
+</blockquote>
+<p>D'après la commande <code>docker run --help</code> il existe une option : <code>-p</code> décrite de la sorte : <code>Publish a container's port(s) to the host</code> qui correpond à nos besoin.<br>
+En ajoutant cette option à la commande <code>run</code> initiale on obtient :</p>
+<div class="highlight highlight-source-shell"><pre>docker run -p QUELQUECHOSE php:apache </pre></div>
+<p>Mais comment formuler le <code>QUELQUECHOSE</code> ?<br>
+L'attribution de port dansDocker se fait de la sorte :</p>
+<div class="highlight highlight-source-shell"><pre>docker run -p PORT_HOTE:PORT_CONTENEUR IMAGE </pre></div>
+<p>Le premier nombre <code>PORT_HOTE</code> correspond au port de la machine hôte (ici votre PC) qui sera attribué au conteneur.<br>
+Le second nombre <code>PORT_CONTENEUR</code> correspond au port du conteneur qui sera exposé.<br>
+On lie donc le port <code>PORT_CONTENEUR</code> avec le port <code>PORT_HOTE</code>.<br></p>
+<p>(cf. <a href="https://docs.docker.com/engine/reference/run/#expose-incoming-ports" rel="nofollow">https://docs.docker.com/engine/reference/run/#expose-incoming-ports</a>)</p>
+<br> 
+<blockquote>
+<p><strong>Créons un conteneur Apache PHP. Exposer son port 80 et le lier au port 8080 de notre machine.</strong></p>
+</blockquote>
+<div class="highlight highlight-source-shell"><pre>docker run -p 8080:80 php:apache </pre></div>
+<p>On peut maintenant accéder au serveur Apache via <a href="http://localhost:8080/" rel="nofollow">http://localhost:8080/</a> cependant il n'y a pas de contenu.<br>
+Nous pouvons ajouter une page d'accueil en "bidouillant" un peu. Pour cela on utilise les commandes suivantes :</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> Rappel : Supprime l'ensemble des conteneurs basés sur l'image php:apache </span>
+$ docker rm -f <span class="pl-s"><span class="pl-pds">`</span>docker ps -aq --filter <span class="pl-s"><span class="pl-pds">"</span>ancestor=php:apache<span class="pl-pds">"</span></span><span class="pl-pds">`</span></span> 
+ 
+<span class="pl-c"><span class="pl-c">#</span> On créé un conteneur Apache avec PHP </span>
+<span class="pl-c"><span class="pl-c">#</span> On définit le fait que le port 8080 de notre machine sera lié au port 80 du conteneur </span>
+<span class="pl-c"><span class="pl-c">#</span> On passe une commande au conteneur qui : </span>
+<span class="pl-c"><span class="pl-c">#</span>   1- Lance bash et exécute la chaîne de caractère comme une commande </span>
+<span class="pl-c"><span class="pl-c">#</span>   2- Écrit "Hello World ! &lt;?php phpinfo(); ?&gt;" dans le fichier /var/www/html/index.php du conteneur </span>
+<span class="pl-c"><span class="pl-c">#</span>   3- Lance Apache </span>
+docker run -d -p 8080:80 php:apache bash -c <span class="pl-s"><span class="pl-pds">"</span>echo <span class="pl-cce">\"</span>Hello World ! &lt;?php phpinfo(); ?&gt;<span class="pl-cce">\"</span> &gt; index.php; apache2-foreground<span class="pl-pds">"</span></span> </pre></div>
+<p>Désormais, lorsqu'on accède à <a href="http://localhost:8080/" rel="nofollow">http://localhost:8080/</a>, on obtient une page de ce style :
+<a href="./first-index-creation-apache-docker.png" target="_blank" rel="noopener noreferrer"><img src="./first-index-creation-apache-docker.png" alt="first-index-creation-apache-docker" style="max-width:100%;"></a></p>
+<br> 
+<p>Le résultat nous montre bien que nous avons réussi cependant vous imaginez-vous mettre au point une commande aussi compliquée que celle précédente pour un projet contenant 100 ou 200 fichiers ?<br>
+Bien sûr que non ! Heureusement il existe une solution, le Dockerfile.</p>
+<p>Nous aborderons les Dockerfiles dans le TP suivant : <a href="../TP2">TP Docker n°2 - Découverte des Dockerfile</a></p>
+      </div>
+    </div>
+  </body>
+</html>

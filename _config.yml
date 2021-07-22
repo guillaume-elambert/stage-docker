@@ -1,0 +1,5 @@
+remote_theme: pmarsceill/just-the-docs
+exclude: ["*index.html"] 
+title: TP Docker
+color_scheme: dark
+search_enabled: false
